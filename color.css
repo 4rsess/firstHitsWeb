@@ -1,3 +1,9 @@
-h1 {
+h1{
     color: green;
+}
+p{
+    color: blue;
+}
+div{
+    color: red;
 }
