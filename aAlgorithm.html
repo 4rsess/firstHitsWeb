@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Поиск пути на карте</title>
+    <link rel="stylesheet" href="styleCode.css">
 </head>
 <body>
-    <h1>Идет процесс создания А*...</h1>
+    <h1 class="nameAlgorithm">Алгоритм A*</h1>
+    <h2 class="mapSize">Размер карты</h2>
+    <h1 class="down1"></h1>
+    <label for="mapSize"></label>
+    <input class="map" type="number" id="mapSize" min="1" placeholder="Введите размер">
+    <button class="bottontab" onclick="generateMap()">Генерация карты</button>
+    <div class="map" id="map"></div>
+    <script src="aAlgorithm.js"></script>
+    <script src="styleCode.css"></script>
 </body>
 </html>
