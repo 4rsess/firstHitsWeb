@@ -1,5 +1,7 @@
 const mapSizeInput = document.getElementById('mapSize');
-const generateMapBtn = document.getElementById('generateMapBtn');
+const addObstacleBtn = document.getElementById('addObstacleBtn');
+const addStartBtn = document.getElementById('addStartBtn');
+const addEndBtn = document.getElementById('addEndBtn');
 const mapContainer = document.getElementById('map');
 let startCell;
 let endCell;
@@ -17,7 +19,7 @@ function generateMap() {
             const cell = document.createElement('div');
             cell.classList.add('cell');
 
-            if (Math.random() < 0.2 + Math.random() * 0.3) {
+            if (Math.random() > 0.6) {
                 cell.classList.add('obstacle');
             }
 
@@ -26,27 +28,62 @@ function generateMap() {
         }
         mapContainer.appendChild(row);
     }
-
-    startCell = getRandomCell();
-    startCell.classList.add('start');
-    startCell.style.backgroundColor = 'red';
-    startCell.textContent = "start";
-
-    endCell = getRandomCell();
-    endCell.classList.add('end');
-    endCell.style.backgroundColor = 'green';
-    endCell.textContent = "end";
 }
 
 function toggleCell(cell) {
-    cell.classList.toggle('obstacle');
+    if (addStartBtn.classList.contains('active')) {
+        if (cell === startCell) {
+            cell.classList.remove('start');
+            cell.style.backgroundColor = '';
+            cell.textContent = '';
+            startCell = null;
+        } else {
+            if (startCell) {
+                startCell.classList.remove('start');
+                startCell.textContent = '';
+            }
+            startCell = cell;
+            startCell.classList.add('start');
+            startCell.style.backgroundColor = 'red';
+            startCell.textContent = "start";
+        }
+    } else if (addEndBtn.classList.contains('active')) {
+        if (cell === endCell) {
+            cell.classList.remove('end');
+            cell.style.backgroundColor = '';
+            cell.textContent = '';
+            endCell = null;
+        } else {
+            if (endCell) {
+                endCell.classList.remove('end');
+                endCell.textContent = '';
+            }
+            endCell = cell;
+            endCell.classList.add('end');
+            endCell.style.backgroundColor = 'green';
+            endCell.textContent = "end";
+        }
+    } else if (addObstacleBtn.classList.contains('active')) {
+        cell.classList.toggle('obstacle');
+    }
 }
 
-function getRandomCell() {
-    const rows = Array.from(document.querySelectorAll('.row'));
-    const randomRow = rows[Math.floor(Math.random() * rows.length)];
-    const cells = Array.from(randomRow.querySelectorAll('.cell'));
-    return cells[Math.floor(Math.random() * cells.length)];
-}
+addObstacleBtn.addEventListener('click', () => {
+    addObstacleBtn.classList.toggle('active');
+    addStartBtn.classList.remove('active');
+    addEndBtn.classList.remove('active');
+});
+
+addStartBtn.addEventListener('click', () => {
+    addStartBtn.classList.toggle('active');
+    addEndBtn.classList.remove('active');
+    addObstacleBtn.classList.remove('active');
+});
+
+addEndBtn.addEventListener('click', () => {
+    addEndBtn.classList.toggle('active');
+    addStartBtn.classList.remove('active');
+    addObstacleBtn.classList.remove('active');
+});
 
 generateMap();
