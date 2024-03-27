@@ -6,7 +6,7 @@ const height = canvas.height
 let colors = ['red', 'green', 'blue', 'grey', 'purple', 'yellow']
 let points = []
 let centroids = []
-let clustersCount = 3
+let clustersCount
 
 function printPoint(x, y, color ='black', thick = 3) {
     ctx.beginPath()
@@ -33,6 +33,8 @@ function clearCanvas() {
 }
 
 function findClusters() {
+    clustersCount = parseInt(document.getElementById('clustersCount').value)
+    
     generateCentroids()
     let centroidsMoved = true
 
