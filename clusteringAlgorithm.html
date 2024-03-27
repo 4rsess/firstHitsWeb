@@ -2,10 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="styleCode.css">
 </head>
 <body>
-    <h1>Идет процесс создания Алгоритма кластеризации...</h1>
+    <h1>Алгоритм кластеризации</h1>
+    <h2>Расставьте точки на поле</h2>
+
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <button class="findClusters" onclick="findClusters()">Нахождение кластеров</button>
+    <button class="clearCanvas" onclick="clearCanvas()">Очистить поле</button>
+    <script src="clusteringAlgorithm.js"></script>
 </body>
 </html>
