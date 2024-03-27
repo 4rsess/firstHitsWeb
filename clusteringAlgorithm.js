@@ -6,9 +6,7 @@ const height = canvas.height
 let colors = ['red', 'green', 'blue', 'grey', 'purple', 'yellow']
 let points = []
 let centroids = []
-let tempCentroids = []
 let clustersCount = 3
-let centroidsMoved = true
 
 function printPoint(x, y, color ='black', thick = 3) {
     ctx.beginPath()
@@ -36,7 +34,7 @@ function clearCanvas() {
 
 function findClusters() {
     generateCentroids()
-    tempCentroids = centroids
+    let centroidsMoved = true
 
     while(centroidsMoved) {
         centroidsMoved = false
@@ -44,10 +42,6 @@ function findClusters() {
     }
 
     centroidsMoved = true
-
-    for (let i = 0; i < tempCentroids.length; i++) {
-        printPoint(tempCentroids[i].x, tempCentroids[i].y, colors[i], 8)
-    }
 }
 
 function generateCentroids() {
@@ -56,18 +50,42 @@ function generateCentroids() {
 
         ctx.clearRect(0, 0, width, height)
 
-        points.forEach (point => {
+        points.forEach(point => {
             printPoint(point.x, point.y)
         })
     }
 
-    for (let i = 0; i < clustersCount; i++) {
-        let x = Math.random() * width
-        let y = Math.random() * height
-        
-        printPoint(x, y, colors[i])
+    centroids.push(points[Math.floor(Math.random() * points.length)])
+    printPoint(centroids[0].x, centroids[0].y, colors[0])
 
-        centroids.push( { x, y } )
+    let sumDistances = []
+
+    for (let i = 1; i < clustersCount; i++) {
+        sumDistances.length = 0
+
+        let sum = 0;
+        points.forEach (point =>  {
+            let minDistance = 1e5
+            centroids.forEach (centroid => {
+                let distance = getHypot(point, centroid)
+                minDistance = Math.min(minDistance, distance)
+            })
+            sum += Math.pow(minDistance , 2)
+            sumDistances.push({ point, sum })
+        })
+
+        let randomValue = Math.random() * sum
+
+        let selectedPoint
+        for (let { point, sum } of sumDistances) {
+            if (randomValue <= sum) {
+                selectedPoint = point
+                break
+            }
+        }
+
+        centroids.push(selectedPoint)
+        printPoint(selectedPoint.x, selectedPoint.y, colors[i])
     }
 
     correlatePointsToCentroids()
@@ -95,14 +113,10 @@ function correlatePointsToCentroids() {
         let color = colors[closeCentroidIndex]
 
         printPoint(x, y, color)
-        newPoints.push( {x, y, color} )
+        newPoints.push({ x, y, color })
     }
 
     points = newPoints
-
-    for (let i = 0; i < centroids.length; i++) {
-        printPoint(centroids[i].x, centroids[i].y, colors[i], 8)
-    }
 }
 
 function updateCentroids() {
