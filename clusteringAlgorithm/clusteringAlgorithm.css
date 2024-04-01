@@ -1,0 +1,32 @@
+body{
+    background-image: url("https://bogatyr.club/uploads/posts/2023-03/1679525880_bogatyr-club-p-estetichnie-oboi-belie-foni-oboi-46.jpg");
+    background-size: cover;
+}
+canvas {
+    background-color: white;
+    border: 1px solid black;
+}
+.findClusters{
+    position: relative;
+    left: 70px;
+    border: 3px solid rgb(54, 54, 54);
+    max-width: 160px;
+    background-color: white;
+    border-radius: 5px;
+    font-weight: 1000;
+}
+.clearCanvas{
+    position: relative;
+    left: 70px;
+    border: 3px solid rgb(54, 54, 54);
+    max-width: 200px;
+    background-color: white;
+    border-radius: 5px;
+    font-weight: 1000;
+}
+.tab{
+    position: relative;
+    top: -13px;
+    left: 848px;
+    height: 26px;
+}

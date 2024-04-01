@@ -1,0 +1,26 @@
+body{
+    background-image: url("https://bogatyr.club/uploads/posts/2023-03/1679525880_bogatyr-club-p-estetichnie-oboi-belie-foni-oboi-46.jpg");
+    background-size: cover;
+}
+.geneticCanvas{
+    background-color: white;
+    border: 1px solid black;
+}
+.findGenetic{
+    position: relative;
+    border: 3px solid rgb(54, 54, 54);
+    border-radius: 5px;
+    max-width: 160px;
+    background-color: white;
+    left: 110px;
+    font-weight: 800;
+}
+.clearGeneticCanvas{
+    position: relative;
+    border: 3px solid rgb(54, 54, 54);
+    border-radius: 5px;
+    max-width: 160px;
+    background-color: white;
+    left: 110px;
+    font-weight: 800;
+}
