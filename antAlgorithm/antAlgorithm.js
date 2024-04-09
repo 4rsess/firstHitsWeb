@@ -56,12 +56,12 @@ function initializePheromone(numPoints) {
 }
 
 async function findWayAndDraw() {
-    const numAnts = 10;
-    const numIterations = 100;
+    let numAnts = parseInt(document.getElementById('numAnts').value);
+    let numIterations = parseInt(document.getElementById('numIterations').value);
+    let evaporationRate = parseInt(document.getElementById('evaporationRate').value);
     const alpha = 1;
     const beta = 2;
-    const evaporationRate = 0.5;
-
+    
     const graph = calculateDistances(points);
     let pheromone = initializePheromone(points.length);
     let bestPath = [];
