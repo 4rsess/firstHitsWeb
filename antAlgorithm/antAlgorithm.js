@@ -55,7 +55,7 @@ function initializePheromone(numPoints) {
     return pheromone;
 }
 
-function findWayAndDraw() {
+async function findWayAndDraw() {
     const numAnts = 10;
     const numIterations = 100;
     const alpha = 1;
@@ -76,9 +76,15 @@ function findWayAndDraw() {
             }
         }
         updatePheromoneGlobal(pheromone, evaporationRate);
+        drawBestPath(bestPath);
+        await sleep(100);
     }
 
     drawBestPath(bestPath);
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function generateAntPath(graph, pheromone, alpha, beta) {
