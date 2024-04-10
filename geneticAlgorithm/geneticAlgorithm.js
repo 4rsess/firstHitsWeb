@@ -4,7 +4,7 @@ const width = canvas.width;
 const height = canvas.height;
 
 let points = [];
-let centroids = [];
+let originalPoints = [];
 
 function printPoint(x, y, color ='black', thick = 5) {
     ctx.beginPath();
@@ -25,8 +25,7 @@ canvas.addEventListener('click', function(event) {
 })
 
 function clearCanvas() {
-    points.length = 0;
-    centroids.length = 0;
+    points.length = 0; 
     ctx.clearRect(0, 0, width, height);
 }
 
@@ -40,7 +39,7 @@ function createInitialPopulation(points, populationSize) { //создаем на
     let population = [];
     for (let i = 0; i < populationSize; i++) {
         let route = points.slice();
-        for (let j = route.length - 1; j > 0; j--) {   //перемешиваем массив
+        for (let j = route.length - 1; j > 0; j--) {  //перемешиваем массив
             const k = Math.floor(Math.random() * (j + 1));
             const temp = route[j];
             route[j] = route[k];
@@ -51,7 +50,7 @@ function createInitialPopulation(points, populationSize) { //создаем на
     return population;
 }
 
-function calculateFitness(population) {   //пригоден ли маршрут в попкляции
+function calculateFitness(population) {  //пригоден ли маршрут в попкляции
     let fitnessScores = [];
     for (let i = 0; i < population.length; i++) {
         let route = population[i];
@@ -60,12 +59,12 @@ function calculateFitness(population) {   //пригоден ли маршрут
             totalDistance += distance(route[j], route[j + 1]);
         }
         totalDistance += distance(route[route.length - 1], route[0]); //добавляем расстояние от последней точки к первой
-        fitnessScores.push(1 / totalDistance) ;
+        fitnessScores.push(1 / totalDistance);
     }
     return fitnessScores;
 }
 
-function selectParents(population, fitnessScores) {  //рандомно выбираем родителя
+function selectParents(population, fitnessScores) { //выбираем родителя
     let totalFitness = fitnessScores.reduce((a, b) => a + b, 0);
     let probabilities = fitnessScores.map(score => score / totalFitness);
     let cumulativeProbabilities = [];
@@ -79,7 +78,7 @@ function selectParents(population, fitnessScores) {  //рандомно выби
     return parents;
 }
 
-function crossover(parent1, parent2) { //скрещиваем родителей 
+function crossover(parent1, parent2) {  //скрещиваем родителей 
     const start = Math.floor(Math.random() * parent1.length);
     const end = Math.floor(Math.random() * (parent1.length - start)) + start;
     const child = parent1.slice(start, end);
@@ -90,7 +89,6 @@ function crossover(parent1, parent2) { //скрещиваем родителей
     })
     return child;
 }
-
 
 function mutate(child) {  //мутируем потомков
     const index1 = Math.floor(Math.random() * child.length);
@@ -104,10 +102,12 @@ function mutate(child) {  //мутируем потомков
     return child;
 }
 
-function geneticAlgorithm(points, populationSize, generations) {  //сам генетический алгоритм
+async function geneticAlgorithm(points, populationSize, generations) { //сам генетический алгоритм
     let population = createInitialPopulation(points, populationSize);
     let bestRoute = population[0];
     let bestFitness = 0;
+    let intermediateRoutes = []; //хранения промежуточных маршрутов
+
     for (let i = 0; i < generations; i++) {
         let fitnessScores = calculateFitness(population);
         let maxFitnessIndex = fitnessScores.indexOf(Math.max(...fitnessScores));
@@ -115,16 +115,28 @@ function geneticAlgorithm(points, populationSize, generations) {  //сам ге�
         if (maxFitness > bestFitness) {
             bestRoute = population[maxFitnessIndex];
             bestFitness = maxFitness;
-            ctx.clearRect(0, 0, width, height);  //отрисовка маршрута
-            ctx.beginPath();
-            ctx.moveTo(bestRoute[0].x, bestRoute[0].y);
-            for (let j = 1; j < bestRoute.length; j++) {
-                ctx.lineTo(bestRoute[j].x, bestRoute[j].y);
-            }
-            ctx.lineTo(bestRoute[0].x, bestRoute[0].y)
-            ctx.strokeStyle = 'black';
-            ctx.stroke();
         }
+
+        for (let j = 0; j < population.length; j++) {
+            let route = population[j];
+            if (!intermediateRoutes.some(r => isEqual(r, route))) {
+                intermediateRoutes.push(route);
+                ctx.clearRect(0, 0, width, height); //отрисовка маршрута
+                ctx.beginPath();
+                ctx.moveTo(route[0].x, route[0].y);
+                for (let k = 1; k < route.length; k++) {
+                    ctx.lineTo(route[k].x, route[k].y);
+                }
+                ctx.lineTo(route[0].x, route[0].y)
+                ctx.strokeStyle = 'gray';
+                ctx.stroke();
+                originalPoints.forEach(point => {
+                    printPoint(point.x, point.y);
+                });
+                await new Promise(resolve => setTimeout(resolve, 1));  //время показа всех путей *миллисек
+            }
+        }
+
         let newPopulation = [];
         for (let j = 0; j < populationSize / 2; j++) {
             let parents = selectParents(population, fitnessScores);
@@ -136,10 +148,36 @@ function geneticAlgorithm(points, populationSize, generations) {  //сам ге�
         }
         population = newPopulation;
     }
+
+            //отрисовка окончательного маршрута
+    ctx.clearRect(0, 0, width, height);
+    ctx.beginPath();
+    ctx.moveTo(bestRoute[0].x, bestRoute[0].y);
+    for (let i = 1; i < bestRoute.length; i++) {
+        ctx.lineTo(bestRoute[i].x, bestRoute[i].y);
+    }
+    ctx.lineTo(bestRoute[0].x, bestRoute[0].y)
+    ctx.strokeStyle = 'black';
+    ctx.stroke();
+
+    originalPoints.forEach(point => {
+        printPoint(point.x, point.y);
+    });
 }
 
-function findGenetic() { //размер популяции и кол-во поколений
-    const populationSize = 100; 
-    const generations = 100;  
-    geneticAlgorithm(points, populationSize, generations);
+              //сравнения массивов точек
+function isEqual(arr1, arr2) {
+    if (arr1.length !== arr2.length) return false;
+    for (let i = 0; i < arr1.length; i++) {
+        if (arr1[i].x !== arr2[i].x || arr1[i].y !== arr2[i].y) return false;
+    }
+    return true;
+}
+
+
+function findGenetic() {  //размер популяции и кол-во поколений
+    originalPoints = points.slice();
+    const populationSize = 100;
+    const generations = 100;
+    geneticAlgorithm(originalPoints, populationSize, generations);
 }
