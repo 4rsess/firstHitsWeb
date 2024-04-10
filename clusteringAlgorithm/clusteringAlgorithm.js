@@ -4,9 +4,11 @@ const width = canvas.width
 const height = canvas.height
 
 let colors = ['red', 'green', 'blue', 'grey', 'purple', 'yellow']
+let eps = parseInt(document.getElementById('eps').value)
+let minPoints = parseInt(document.getElementById('minPoints').value)
+let clustersCount = parseInt(document.getElementById('clustersCount').value)
 let points = []
 let centroids = []
-let clustersCount
 
 function printPoint(x, y, color ='black', thick = 3) {
     ctx.beginPath()
@@ -27,14 +29,82 @@ canvas.addEventListener('click', function(event) {
 })
 
 function clearCanvas() {
-    points.length = 0
-    centroids.length = 0
+    points = []
     ctx.clearRect(0, 0, width, height)
 }
 
 function findClusters() {
-    clustersCount = parseInt(document.getElementById('clustersCount').value)
+    kMeans()
+}
+
+function dbscan() {
+    let clusters = []
+    let visited = new Set()
+    let noise = new Set()
+
+    for (let i = 0; i < points.length; i++) { 
+        const nowPoint = points[i]
+        if (visited.has(nowPoint)){
+            continue
+        }
+
+        visited.add(nowPoint)
+        const neighbors = findNeighbors(nowPoint, points, eps)
+
+        if (neighbors.length < minPoints) { 
+            noise.add(nowPoint)
+            continue
+        }
+        const cluster = [nowPoint]
+        clusters.push(cluster)
+
+        let checks = new Set(neighbors)
+        while (checks.size > 0) { 
+            const checkPoint = checks.values().next().value
+            visited.add(checkPoint)
+
+            const checkPointNeighbors = findNeighbors(checkPoint, points, eps)
+
+            if (checkPointNeighbors.length >= minPoints){
+                checkPointNeighbors.forEach(j =>{
+                    if (!visited.has(j)) {
+                        checks.add(j)
+                        visited.add(j)
+                    }
+                });
+            }
+
+            if (!noise.has(checkPoint)) {
+                cluster.push(checkPoint)
+            }
+            checks.delete(checkPoint)
+        }
+    }
     
+    for (let i = 0; i < clusters.length; i++) {
+        for (let j = 0; j < clusters[i].length; j++) { 
+            let index = points.indexOf(clusters[i][j])
+            printPoint(points[index].x, points[index].y, colors[i])
+        }
+    }
+}
+
+function findNeighbors(point) { 
+    let neighbors = []
+
+    for (let i = 0; i < points.length; i++) { 
+        if (point === points[i]) {
+            continue
+        }
+        let distance = getHypot(point, points[i])
+        if (distance < eps) {
+            neighbors.push(points[i])
+        }
+    }
+    return neighbors
+}
+
+function kMeans() {
     generateCentroids()
     let centroidsMoved = true
 
@@ -48,7 +118,7 @@ function findClusters() {
 
 function generateCentroids() {
     if (centroids.length > 0) {
-        centroids.length = 0
+        centroids = []
 
         ctx.clearRect(0, 0, width, height)
 
@@ -154,6 +224,6 @@ function updateCentroids() {
     correlatePointsToCentroids()
 }
 
-function getHypot(point, centroid) {
-    return Math.sqrt(Math.pow((point.x - centroid.x), 2) + Math.pow((point.y - centroid.y), 2))
+function getHypot(point1, point2) {
+    return Math.sqrt((point1.x - point2.x) ** 2 + (point1.y - point2.y) ** 2)
 }
