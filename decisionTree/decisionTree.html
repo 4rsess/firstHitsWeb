@@ -7,12 +7,28 @@
     <link rel="stylesheet" href="decisionTree.css">
 </head>
 <body>
-    <h2 class="nameInput1">Введите ваш csv</h2>
-    <textarea id="csvInput" cols="40" rows="5"></textarea>
-    <button class="buttonBuild" id="buildTree">Построить дерево</button>
-    <h2 class="nameInput2" >Поиск элемента</h2>
-    <textarea id="csvSearch" cols="40" rows="5"></textarea>
-    <button class="buttonSearch" id="searchElement">Поиск</button>
+    <div class="area">
+        <div class="inputSection">
+            <h2 class="nameInput1">Введите ваш csv</h2>
+            <textarea id="csvInput" cols="40" rows="5"></textarea>
+            <button class="buttonBuild" id="buildTreeBtn">Построить дерево</button>
+        </div>
+        <div id="tree" class="tree"></div>
+        <div class="searchSection">
+            <h2 class="nameInput2">Поиск элемента</h2>
+            <textarea id="csvSearch" cols="40" rows="5"></textarea>
+            <button class="buttonSearch" id="searchBtn">Поиск</button>
+        </div>
+    </div>
     <script src="decisionTree.js"></script>
 </body>
 </html>
+
+
+<!-- Выручка, Расходы, Инвестиции, ФинансовоеСостояние
+100000, 50000, 20000, Плохое
+200000, 80000, 30000, Плохое
+300000, 100000, 50000, Удовлетворительное
+400000, 150000, 70000, Удовлетворительное
+500000, 200000, 90000, Хорошее
+600000, 250000, 110000, Хорошее -->

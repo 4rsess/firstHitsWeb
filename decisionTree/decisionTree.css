@@ -2,33 +2,63 @@ body{
     background-image: url("https://bogatyr.club/uploads/posts/2023-03/1679525880_bogatyr-club-p-estetichnie-oboi-belie-foni-oboi-46.jpg");
     background-size: cover;
 }
-.nameInput1{
-    border: 3px solid rgb(54, 54, 54);
-    max-width: 200px;
-    background-color: white;
-    border-radius: 5px;
-    font-weight: 1200;
+.area {
+    display: flex;
 }
-.nameInput2{
-    border: 3px solid rgb(54, 54, 54);
-    max-width: 200px;
-    background-color: white;
-    border-radius: 5px;
-    font-weight: 1200;
+
+.inputSection {
+    flex: 1;
+    margin-left: 60px;
+}
+.searchSection{
+    flex: 1;
+    margin-left: 60px;
 }
 .buttonBuild{
     border: 3px solid rgb(54, 54, 54);
-    padding: 5px 5px ;
-    max-width: 200px;
+    max-width: 160px;
     background-color: white;
     border-radius: 5px;
-    font-weight: 1200;
+    font-weight: 1000;
 }
 .buttonSearch{
+    position: relative;
+    top: 23px;
+    left: -67px;
     border: 3px solid rgb(54, 54, 54);
-    padding: 5px 20px ;
-    max-width: 200px;
+    max-width: 160px;
     background-color: white;
     border-radius: 5px;
-    font-weight: 1200;
+    font-weight: 1000;
+}
+.nameInput1{
+    border: 3px solid rgb(54, 54, 54);
+    max-width: 220px;
+    background-color: white;
+    border-radius: 5px; 
+
+}
+.nameInput2{
+    border: 3px solid rgb(54, 54, 54);
+    max-width: 190px;
+    background-color: white;
+    border-radius: 5px;  
+     
+}
+.tree {
+    flex: 2;
+}
+
+.tree ul {
+    margin-left: 20px;
+}
+
+.tree li {
+    display: block;
+    padding: 8px 16px;
+    border-top: 1px solid #000;
+}
+
+.tree li:first-child {
+    border-top: none;
 }
