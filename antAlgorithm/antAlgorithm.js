@@ -77,14 +77,14 @@ async function findWayAndDraw() {
         }
         updatePheromoneGlobal(pheromone, evaporationRate);
         drawBestPath(bestPath);
-        await sleep(100);
+        await sleep(150);
     }
 
     drawBestPath(bestPath);
 }
 
 function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(findWayAndDraw => setTimeout(findWayAndDraw, ms));
 }
 
 function generateAntPath(graph, pheromone, alpha, beta) {
