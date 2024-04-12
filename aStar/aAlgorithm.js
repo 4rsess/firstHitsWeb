@@ -9,7 +9,7 @@ let openSet = [];
 let closedSet = [];
 let path = [];
 
-function generateModifiedPrimMaze(width, height) {
+function generatePrimMaze(width, height) {
     let maze = [];
     for (let h = 0; h < height; h++) {
         let row = [];
@@ -19,7 +19,7 @@ function generateModifiedPrimMaze(width, height) {
         maze.push(row);
     }
 
-    //выбираем случайную ячейку с нечетными координатами и очищаем ее.
+    //выбираем случайную ячейку с нечетными координатами и очищаем ее
     let x = getRandomOddNumber(width);
     let y = getRandomOddNumber(height);
     maze[y][x] = 0; 
@@ -91,62 +91,52 @@ function getRandomNumber(max) {
 }
 
 function generateMap() {
-  const n = parseInt(mapSizeInput.value);
-  mapContainer.innerHTML = '';
-  startCell = null;
-  endCell = null;
+    const n = parseInt(mapSizeInput.value);
+    mapContainer.innerHTML = '';
+    startCell = null;
+    endCell = null;
 
-  let maze = generateModifiedPrimMaze(n, n);
+    let maze = generatePrimMaze(n, n);
 
-  //добавляем стенки по краям 
-  for (let i = 0; i < n; i++) {
-      maze[i][0] = 1; 
-      maze[i][n - 1] = 1; 
-  }
-  for (let j = 0; j < n; j++) {
-      maze[0][j] = 1; 
-      maze[n - 1][j] = 1; 
-  }
+    //добавляем стенки по краям
+    for (let i = 0; i < n; i++) {
+        maze[i][0] = 1;
+        maze[i][n - 1] = 1;
+    }
+    for (let j = 0; j < n; j++) {
+        maze[0][j] = 1;
+        maze[n - 1][j] = 1;
+    }
 
-  //рисуем лабиринт
-  for (let i = 0; i < n; i++) {
-      const row = document.createElement('div');
-      row.classList.add('row');
-      for (let j = 0; j < n; j++) {
-          const cell = document.createElement('div');
-          cell.classList.add('cell');
-          if (maze[i][j] === 1) {
-              cell.classList.add('obstacle');
-          }
-          cell.addEventListener('click', () => toggleCell(cell));
-          row.appendChild(cell);
-      }
-      mapContainer.appendChild(row);
-  }
+    //рисуем лабиринт
+    for (let i = 0; i < n; i++) {
+        const row = document.createElement('div');
+        row.classList.add('row');
+        for (let j = 0; j < n; j++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            if (maze[i][j] === 1) {
+                cell.classList.add('obstacle');
+            }
+            cell.addEventListener('click', () => toggleCell(cell));
+            row.appendChild(cell);
+        }
+        mapContainer.appendChild(row);
+    }
 
-  //случайные ячейки для начальной и конечной точек
-  startCell = getRandomCell();
-  startCell.classList.add('start');
-  startCell.style.backgroundColor = 'red';
-  startCell.textContent = "start";
+    //генерация начала в левом верхнем углу
+    startCell = mapContainer.children[1].children[1]; 
+    startCell.classList.remove('obstacle');
+    startCell.classList.add('start');
+    startCell.style.backgroundColor = 'red';
+    startCell.textContent = "start";
 
-  endCell = getRandomCell();
-  endCell.classList.add('end');
-  endCell.style.backgroundColor = 'green';
-  endCell.textContent = "end";
-}
-
-
-function getRandomCell() {
-    let randomCell;
-    do {
-        const rows = Array.from(document.querySelectorAll('.row'));
-        const randomRow = rows[Math.floor(Math.random() * rows.length)];
-        const cells = Array.from(randomRow.querySelectorAll('.cell'));
-        randomCell = cells[Math.floor(Math.random() * cells.length)];
-    } while (randomCell.classList.contains('obstacle') || randomCell.classList.contains('start') || randomCell.classList.contains('end'));
-
-    return randomCell;
+    //генерация конца в правом нижнем углу
+    endCell = mapContainer.children[n - 2].children[n - 2]; 
+    endCell.classList.remove('obstacle');
+    endCell.classList.add('end');
+    endCell.style.backgroundColor = 'green';
+    endCell.textContent = "end";
 }
 
 function toggleCell(cell) {
@@ -159,6 +149,7 @@ function toggleCell(cell) {
         } else {
             if (startCell) {
                 startCell.classList.remove('start');
+                startCell.style.backgroundColor = ''; 
                 startCell.textContent = '';
             }
             startCell = cell;
@@ -175,6 +166,7 @@ function toggleCell(cell) {
         } else {
             if (endCell) {
                 endCell.classList.remove('end');
+                endCell.style.backgroundColor = ''; 
                 endCell.textContent = '';
             }
             endCell = cell;
@@ -186,6 +178,7 @@ function toggleCell(cell) {
         cell.classList.toggle('obstacle');
     }
 }
+
 
 addObstacleBtn.addEventListener('click', () => {
     addObstacleBtn.classList.toggle('active');
@@ -337,12 +330,49 @@ function reconstructPath(current) {
             if (path[i] !== endCell) {
                 path[i].style.backgroundColor = 'red';
             }
-        }, 80 * i);
+        }, 70 * i);
+    }
+}
+
+    //проверка пути
+function checkPathAvailability() {
+    const queue = [startCell];
+    const visited = new Set();
+    visited.add(startCell);
+
+    while (queue.length > 0) {
+        const current = queue.shift();
+        const neighbors = getNeighbors(current);
+
+        for (const neighbor of neighbors) {
+            if (!visited.has(neighbor) && !neighbor.classList.contains('obstacle')) {
+                if (neighbor === endCell) {
+                    return true; //путь доступен
+                }
+                visited.add(neighbor);
+                queue.push(neighbor);
+            }
+        }
+    }
+
+    return false; 
+}
+
+function generateMapWithValidPath() {
+    let isValidPath = false;
+    let attempts = 0;
+
+    while (!isValidPath && attempts < 100) { 
+        generateMap();
+        isValidPath = checkPathAvailability();
+        attempts++;
+    }
+
+    if (!isValidPath) {
+        alert('Не удалось сгенерировать лабиринт с путем от начала до конца.');
     }
 }
 
 document.querySelector('.bottontab1').addEventListener('click', () => {
-
-  generateMap();
+    generateMapWithValidPath();
 });
-
