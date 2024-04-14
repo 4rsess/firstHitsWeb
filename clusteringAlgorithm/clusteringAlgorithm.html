@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Алгоритм кластеризации</title>
     <link rel="stylesheet" href="clusteringAlgorithm.css">
+    <script type="module" src="main.js"></script>
 </head>
 <body>
     <h1>Алгоритм кластеризации</h1>
@@ -13,22 +14,24 @@
 
     <div>
         <input class="tab" type="number" id="clustersCount" min="1" max="6" value="3">
-        <label> Кол-во кластеров </label>
+        <label> Кол-во кластеров (для k-Средних и агломерации)</label>
     </div>
 
     <div>
         <input class="tab" type="number" id="eps" min="10" max ="100" value="50">
-        <label> Радиус поиска </label>
+        <label> Радиус поиска (для DBSCAN)</label>
     </div>
 
     <div>
         <input class="tab" type="number" id="minPoints" min="3" max="8" value = "3">
-        <label> Минимальное количество точек </label>
+        <label> Минимальное количество точек (для DBSCAN)</label>
     </div>
 
-    <button class="findClusters" onclick='findClusters()'>Нахождение кластеров</button>
-    <button class="clearCanvas" onclick="clearCanvas()">Очистить поле</button>
+    <p>линии - k-Средних</p>
+    <p>кольца - агломерация</p>
+    <p>кресты - DBSCAN</p>
     
-    <script src="clusteringAlgorithm.js"></script>
+    <button id="findClusters">Нахождение кластеров</button>
+    <button id="clearCanvas">Очистить поле</button>
 </body>
 </html>
