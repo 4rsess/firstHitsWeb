@@ -13,7 +13,7 @@ export function agglomerativeClustering() {
         let color = colors[index % colors.length]
         cluster.points.forEach(point => {
             printPoint(point.x, point.y, color)
-            printPoint(point.x, point.y, 'white', 3)
+            printPoint(point.x, point.y, 'white', 4)
         })
     })
 }

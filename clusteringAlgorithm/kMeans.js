@@ -1,7 +1,7 @@
 import { points, getHypot, ctx, clustersCount } from "./main.js";
 
 let centroids = []
-let colors = ['#FCA3B7', '#7852A9', '#2E8B57', '#5097A4', '#795C32', '#3E424B']
+let colors = ['#FCA3B7', '#7852A9', '#877F7B', '#5097A4', '#795C32', '#3E424B']
 let tmpPoints
 let centroidsMoved
 

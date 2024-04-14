@@ -11,7 +11,7 @@ export let clustersCount
 export let eps
 export let minPoints
 
-export function printPoint(x, y, color ='black', thick = 5) {
+export function printPoint(x, y, color ='black', thick = 6) {
     ctx.beginPath()
     ctx.arc(x, y, thick, 0, Math.PI * 2)
     ctx.fillStyle = color

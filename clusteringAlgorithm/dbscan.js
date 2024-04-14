@@ -1,7 +1,7 @@
 import { points, getHypot, ctx, eps, minPoints } from "./main.js";
 
 export function dbscan() {
-    let colors = ['cyan', '#622A0F', '#00A86B', '#960019', '#E4CD05', '#C7EA46']
+    let colors = ['cyan', '#622A0F', '#00A86B', '#E0115F', '#E4CD05', '#C7EA46']
     let clusters = []
     let visited = []
     let noise = []
@@ -79,11 +79,11 @@ function drawX(x, y, color = 'black') {
     ctx.beginPath()
     ctx.strokeStyle = color
 
-    ctx.moveTo(x - 5, y - 5)
-    ctx.lineTo(x + 5, y + 5)
+    ctx.moveTo(x - 7, y - 7)
+    ctx.lineTo(x + 7, y + 7)
 
-    ctx.moveTo(x + 5, y - 5)
-    ctx.lineTo(x - 5, y + 5)
+    ctx.moveTo(x + 7, y - 7)
+    ctx.lineTo(x - 7, y + 7)
 
     ctx.stroke()
 }
