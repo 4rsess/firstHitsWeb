@@ -102,41 +102,39 @@ function mutate(child) {  //мутируем потомков
     return child;
 }
 
-async function geneticAlgorithm(points, populationSize, generations) { //сам генетический алгоритм
+async function geneticAlgorithm(points, populationSize, generations) {//сам генетический алгоритм
     let population = createInitialPopulation(points, populationSize);
     let bestRoute = population[0];
     let bestFitness = 0;
-    let intermediateRoutes = []; //хранения промежуточных маршрутов
-
+    
     for (let i = 0; i < generations; i++) {
         let fitnessScores = calculateFitness(population);
         let maxFitnessIndex = fitnessScores.indexOf(Math.max(...fitnessScores));
         let maxFitness = fitnessScores[maxFitnessIndex];
+        
         if (maxFitness > bestFitness) {
             bestRoute = population[maxFitnessIndex];
             bestFitness = maxFitness;
         }
-
-        for (let j = 0; j < population.length; j++) {
-            let route = population[j];
-            if (!intermediateRoutes.some(r => isEqual(r, route))) {
-                intermediateRoutes.push(route);
-                ctx.clearRect(0, 0, width, height); //отрисовка маршрута
-                ctx.beginPath();
-                ctx.moveTo(route[0].x, route[0].y);
-                for (let k = 1; k < route.length; k++) {
-                    ctx.lineTo(route[k].x, route[k].y);
-                }
-                ctx.lineTo(route[0].x, route[0].y)
-                ctx.strokeStyle = 'gray';
-                ctx.stroke();
-                originalPoints.forEach(point => {
-                    printPoint(point.x, point.y);
-                });
-                await new Promise(resolve => setTimeout(resolve, 1));  //время показа всех путей *миллисек
+        
+        //отображаем промежуточный маршрут перед итерацией
+        if (i !== generations - 1) {
+            let route = population[maxFitnessIndex];
+            ctx.clearRect(0, 0, width, height);
+            ctx.beginPath();
+            ctx.moveTo(route[0].x, route[0].y);
+            for (let j = 1; j < route.length; j++) {
+                ctx.lineTo(route[j].x, route[j].y);
             }
+            ctx.lineTo(route[0].x, route[0].y);
+            ctx.strokeStyle = 'gray';
+            ctx.stroke();
+            originalPoints.forEach(point => {
+                printPoint(point.x, point.y);
+            });  // Ожидание 20 миллисекунд между отрисовками
+            await new Promise(resolve => setTimeout(resolve, 20)); 
         }
-
+        
         let newPopulation = [];
         for (let j = 0; j < populationSize / 2; j++) {
             let parents = selectParents(population, fitnessScores);
@@ -148,24 +146,23 @@ async function geneticAlgorithm(points, populationSize, generations) { //сам 
         }
         population = newPopulation;
     }
-
-            //отрисовка окончательного маршрута
+    
+        //отрисовка окончательного маршрута
     ctx.clearRect(0, 0, width, height);
     ctx.beginPath();
     ctx.moveTo(bestRoute[0].x, bestRoute[0].y);
     for (let i = 1; i < bestRoute.length; i++) {
         ctx.lineTo(bestRoute[i].x, bestRoute[i].y);
     }
-    ctx.lineTo(bestRoute[0].x, bestRoute[0].y)
+    ctx.lineTo(bestRoute[0].x, bestRoute[0].y);
     ctx.strokeStyle = 'black';
     ctx.stroke();
-
     originalPoints.forEach(point => {
         printPoint(point.x, point.y);
     });
 }
 
-              //сравнения массивов точек
+    //сравнения массивов точек
 function isEqual(arr1, arr2) {
     if (arr1.length !== arr2.length) return false;
     for (let i = 0; i < arr1.length; i++) {
