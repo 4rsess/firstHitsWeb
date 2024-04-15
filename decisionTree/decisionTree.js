@@ -63,17 +63,40 @@ function highlightNodes(data, searchData, parentElement = document.querySelector
 }
 
 document.querySelector('#buildTreeBtn').addEventListener('click', function () {
-    const csvData = document.querySelector('#csvInput').value; 
-    const data = parseCSV(csvData); 
-    document.querySelector('#tree').innerHTML = ''; 
-    renderTree(data); 
+    const fileInput = document.querySelector('#csvFileInput');
+    const file = fileInput.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+        //устанавливаем обработчик, получаем содержимое и устанавливаем структуру дерева
+        reader.onload = function (event) { 
+            const csvData = event.target.result;
+            const data = parseCSV(csvData);
+            document.querySelector('#tree').innerHTML = '';
+            renderTree(data);
+        };
+        reader.readAsText(file);
+    } else {
+        alert('Пожалуйста, выберите файл CSV');
+    }
 });
 
 document.querySelector('#searchBtn').addEventListener('click', function () {
-    const searchData = document.querySelector('#csvSearch').value.split(","); 
-    const csvData = document.querySelector('#csvInput').value; 
-    const data = parseCSV(csvData); 
-    document.querySelector('#tree').innerHTML = ''; 
-    const path = highlightNodes(data, searchData); 
-    console.log("Path: ", path.join(" -> "));
+    const searchData = document.querySelector('#csvSearch').value.split(",");
+    const fileInput = document.querySelector('#csvFileInput');
+    const file = fileInput.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const csvData = event.target.result;
+            const data = parseCSV(csvData);
+            document.querySelector('#tree').innerHTML = '';
+            const path = highlightNodes(data, searchData);
+            console.log("Path: ", path.join(" -> "));
+        };
+        reader.readAsText(file);
+    } else {
+        alert('Пожалуйста, выберите данные CSV');
+    }
 });

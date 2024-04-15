@@ -15,6 +15,9 @@ body{
     margin-left: 60px;
 }
 .buttonBuild{
+    position: absolute;
+    top: 140px;
+    left: 65px;
     border: 3px solid rgb(54, 54, 54);
     max-width: 160px;
     background-color: white;
@@ -22,9 +25,9 @@ body{
     font-weight: 1000;
 }
 .buttonSearch{
-    position: relative;
-    top: 23px;
-    left: -67px;
+    position: absolute;
+    top: 175px;
+    right: 90px;
     border: 3px solid rgb(54, 54, 54);
     max-width: 160px;
     background-color: white;
@@ -55,8 +58,8 @@ body{
 
 .tree li {
     display: block;
-    padding: 8px 16px;
-    border-top: 1px solid #000;
+    padding: 7px 16px;
+    border-top: 4px solid #000;
 }
 
 .tree li:first-child {
