@@ -19,10 +19,11 @@ function generatePrimMaze(width, height) {
         maze.push(row);
     }
 
-    //выбираем случайную ячейку с нечетными координатами и очищаем ее
+    //выбираем случайную ячейку и очищаем ее
     let x = getRandomOddNumber(width);
     let y = getRandomOddNumber(height);
     maze[y][x] = 0; 
+
     //создаем массив и добавляем координаты ячейки для проверки в массив
     let toCheck = [];
     if (y - 2 >= 0) {
@@ -60,7 +61,7 @@ function generatePrimMaze(width, height) {
             }
             directions.splice(dirIndex, 1);
         }
-           //добавляем соседние стенки в массив для проверки
+        //добавляем соседние стенки в массив для проверки
         if (y - 2 >= 0 && maze[y - 2][x] === 1) {
             toCheck.push({ x: x, y: y - 2 });
         }
@@ -128,15 +129,11 @@ function generateMap() {
     startCell = mapContainer.children[1].children[1]; 
     startCell.classList.remove('obstacle');
     startCell.classList.add('start');
-    startCell.style.backgroundColor = 'red';
-    startCell.textContent = "start";
 
     //генерация конца в правом нижнем углу
     endCell = mapContainer.children[n - 2].children[n - 2]; 
     endCell.classList.remove('obstacle');
     endCell.classList.add('end');
-    endCell.style.backgroundColor = 'green';
-    endCell.textContent = "end";
 }
 
 function toggleCell(cell) {
@@ -144,35 +141,29 @@ function toggleCell(cell) {
         if (cell === startCell) {
             cell.classList.remove('start');
             cell.style.backgroundColor = '';
-            cell.textContent = '';
             startCell = null;
         } else {
             if (startCell) {
                 startCell.classList.remove('start');
                 startCell.style.backgroundColor = ''; 
-                startCell.textContent = '';
             }
             startCell = cell;
             startCell.classList.add('start');
             startCell.style.backgroundColor = 'red';
-            startCell.textContent = "start";
         }
     } else if (addEndBtn.classList.contains('active')) {
         if (cell === endCell) {
             cell.classList.remove('end');
             cell.style.backgroundColor = '';
-            cell.textContent = '';
             endCell = null;
         } else {
             if (endCell) {
                 endCell.classList.remove('end');
                 endCell.style.backgroundColor = ''; 
-                endCell.textContent = '';
             }
             endCell = cell;
             endCell.classList.add('end');
             endCell.style.backgroundColor = 'green';
-            endCell.textContent = "end";
         }
     } else if (addObstacleBtn.classList.contains('active')) {
         cell.classList.toggle('obstacle');
@@ -222,14 +213,14 @@ function aStar() {
                 }
             }
 
-            //если текущая ячейка является конечной, то мы нашли путь
+            //проверка текущей ячейки, яаляется ли она конечкой
             if (current === endCell) {
                 reconstructPath(current);
                 clearInterval(interval);
                 return;
             }
 
-            //перемещение текущей ячейки из openset в closedset
+            //перемещение текущей ячейки
             openSet = openSet.filter(cell => cell !== current);
             closedSet.push(current);
 
@@ -328,13 +319,13 @@ function reconstructPath(current) {
     for (let i = 0; i < path.length - 1; i++) {
         setTimeout(() => {
             if (path[i] !== endCell) {
-                path[i].style.backgroundColor = 'red';
+                path[i].style.backgroundColor = 'rgb(71, 27, 27)';
             }
-        }, 70 * i);
+        }, 65 * i);
     }
 }
 
-    //проверка пути
+//проверка пути на возможность
 function checkPathAvailability() {
     const queue = [startCell];
     const visited = new Set();
@@ -373,6 +364,6 @@ function generateMapWithValidPath() {
     }
 }
 
-document.querySelector('.bottontab1').addEventListener('click', () => {
+document.querySelector('.bottonGeneration').addEventListener('click', () => {
     generateMapWithValidPath();
 });

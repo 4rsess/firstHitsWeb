@@ -10,14 +10,20 @@
     <h1 class="nameAlgorithm">Алгоритм A*</h1>
     <h2 class="mapSize">Размер карты</h2>
     <h1 class="down1"></h1>
-    <label for="mapSize"></label>
-    <input class="tab" type="number" value="15" id="mapSize" min="5" placeholder="Введите размер (минимум 5)">
-    <button class="bottontab1" onclick="generateMap()">Генерация карты</button>
-    <button class="addObstacleBtn" id="addObstacleBtn">Добавление/удаление стенки</button> 
-    <button class="addStartBtn" id="addStartBtn">Добавить/удалить старт</button>
-    <button class="addEndBtn" id="addEndBtn">Добавить/удалить конец</button>
-    <button class="bottontab" onclick="findPath()">Найти путь</button>
+
+    <div>
+        <label for="mapSize"></label>
+        <input class="tab" type="number" value="15" id="mapSize" min="5" placeholder="Введите размер (минимум 5)">
+    </div>
+    
+    <button class="bottonGeneration" onclick="generateMap()">Генерация карты</button>
+    <button class="addObstacleBtn" id="addObstacleBtn">Переместить стенки</button> 
+    <button class="addStartBtn" id="addStartBtn">Переместить старт</button>
+    <button class="addEndBtn" id="addEndBtn">Переместить конец</button>
+    <button class="bottonFind" onclick="findPath()">Найти путь</button>
+
     <div class="map" id="map"></div>
+
     <script src="aAlgorithm.js"></script>
 </body>
 </html>
