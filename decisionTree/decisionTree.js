@@ -28,7 +28,7 @@ function renderTree(data, parentElement = document.querySelector('#tree')) {
     
     for (const item of data) { //обход узлов
         const liElement = document.createElement('li');  //создание и добавление к списку
-        liElement.textContent = `${item.title}: ${item.value}`; 
+        liElement.textContent = `${item.title} ${item.value}`; 
         ulElement.appendChild(liElement);
 
         if (item.children) {
@@ -43,7 +43,7 @@ function highlightNodes(data, searchData, parentElement = document.querySelector
     
     for (const item of data) {
         const liElement = document.createElement('li'); 
-        liElement.textContent = `${item.title}: ${item.value}`; 
+        liElement.textContent = `${item.title} ${item.value}`; 
         ulElement.appendChild(liElement); 
 
         if (item.value === searchData[currentIndex]) {//соответствие значения текущего узла искомого значению

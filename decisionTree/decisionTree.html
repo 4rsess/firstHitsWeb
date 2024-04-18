@@ -7,20 +7,34 @@
     <link rel="stylesheet" href="decisionTree.css">
 </head>
 <body>
-    <h1 class="nameAlgorithm">Дерево решений</h1>
+    <div class="topBar">
+        <a class="link" href="/site.html"> Главная</a>
+        
+        <div class="links">
+            <a class="link" href="/aStar/aAlgorithm.html"> А*</a>
+            <a class="link" href="/clusteringAlgorithm/clusteringAlgorithm.html"> Алгоритм кластеризации</a>
+            <a class="link" href="/geneticAlgorithm/geneticAlgorithm.html"> Генетический алгоритм</a>
+            <a class="link" href="/antAlgorithm/antAlgorithm.html"> Муравьиный алгоритм</a>
+            <a class="currlink" href="/decisionTree/decisionTree.html"> Дерево решений</a>
+        </div>
+    </div>
+
     <div class="area">
         <div class="inputSection">
-            <h2 class="uploadFile">Загрузите ваш CSV файл</h2>
+            <p class="nameUploadFile">Загрузите ваш CSV файл</p>
             <input class="selectFile" type="file" id="csvFileInput" accept=".csv">
             <button class="buttonBuild" id="buildTreeBtn">Построить дерево</button>
         </div>
+
         <div id="tree" class="tree"></div>
+
         <div class="searchSection">
-            <h2 class="elementSearch">Поиск элемента</h2>
+            <p class="nameElementSearch">Поиск элемента</p>
             <textarea class="inputText" id="csvSearch" cols="40" rows="5"></textarea>
             <button class="buttonSearch" id="searchBtn">Поиск</button>
         </div>
     </div>
+
     <script src="decisionTree.js"></script>
 </body>
 </html>

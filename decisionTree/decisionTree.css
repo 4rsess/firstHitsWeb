@@ -1,54 +1,82 @@
-body{
-    background-image: url("https://bogatyr.club/uploads/posts/2023-03/1679525880_bogatyr-club-p-estetichnie-oboi-belie-foni-oboi-46.jpg");
-    background-size: cover;
+@font-face {
+    font-family: "PPNeueMachina-InktrapRegular";
+    src: url('/PPNeueMachina-InktrapRegular.otf');
 }
+
+body {
+    color: white;
+    background-color: black;
+    font-family: "PPNeueMachina-InktrapRegular";
+}
+
+.topBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 35px;
+}
+
+.links {
+    margin-left: 100px;
+}
+
+.link {
+    text-decoration: none;
+    margin-right: 20px;
+    color: #f0f0f0;
+    font-size: 20px;
+}
+
+.link:hover {
+    color: white;
+}
+
+.currlink {
+    text-decoration: none;
+    margin-right: 20px;
+    color: green;
+    font-size: 20px;
+}
+
+.currlink:hover {
+    color: #45a049;
+} 
 .area {
     display: flex;
 }
-.nameAlgorithm{
-    position: absolute;
-    text-align: center;
-    top: 20px;
-    left: 720px;
-    border: 4px solid rgb(54, 54, 54);
-    background-color: white;
-    border-radius: 15px;
-    height: 40px;
-    width: 300px;
-}
 .inputSection {
+    color: white;
     flex: 1;
     margin-left: 60px;
 }
 .searchSection{
+    color: white;
     flex: 1;
     margin-left: 60px;
 }
-.uploadFile{
+.nameUploadFile{
+    color: white;
     position: absolute;
-    text-align: center;
-    border: 3px solid rgb(54, 54, 54);
-    background-color: white;
-    border-radius: 5px; 
-    top: 80px;
+    font-size: 25px;
+    top: 100px;
     left: 50px;
-    height: 30px;
-    width: 300px;
 }
 .selectFile{
     position: absolute;
-    top: 155px;
-    left: 100px;
+    top: 163px;
+    left: 50px;
 }
 .buttonBuild{
+    color: white;
     position: absolute;
     text-align: center;
-    border: 3px solid rgb(54, 54, 54);
-    background-color: white;
-    border-radius: 5px;
-    font-weight: 1000;
-    top: 195px;
-    left: 185px;
+    border: 2px solid white;
+    background-color: #45a049;
+    border-radius: 10px;
+    font-weight: 550;
+    top: 200px;
+    left: 50px;
     height: 28px;
     width: 170px;
 
@@ -56,55 +84,61 @@ body{
 }
 .buttonBuild:hover {transform: scale(1.1);}
 
-.elementSearch{
+.nameElementSearch{
+    color: white;
     position: absolute;
-    text-align: center;
-    border: 3px solid rgb(54, 54, 54);
-    background-color: white;
-    border-radius: 5px; 
-    top: 80px;
-    left: 1400px; 
-    height: 30px;
-    width: 230px;
+    font-size: 25px;
+    top: 320px;
+    left: 50px;
 }
 .inputText{
+    color: white;
     position: absolute;
-    top: 150px;
-    left: 1400px;
+    border: 2px solid white;
+    background-color: #45a049;
+    border-radius: 10px;
+    top: 380px;
+    left: 50px;
 }
 .buttonSearch{
+    color: white;
     position: absolute;
-    border: 3px solid rgb(54, 54, 54);
-    background-color: white;
-    border-radius: 5px;
-    font-weight: 1000;
-    top: 250px;
-    left: 1400px;
+    text-align: center;
+    border: 2px solid white;
+    background-color: #45a049;
+    border-radius: 10px;
+    font-weight: 550;
+    top: 480px;
+    left: 50px;
     height: 28px;
-    width: 110px;
+    width: 120px;
 
     transition: transform 0.2s ease;
 }
 .buttonSearch:hover {transform: scale(1.1);}
 
 .tree {
+    color: white;
     position: absolute;
     top: 162px;
-    left: 500px;
-    width: 700px;
+    left: 450px;
+    width: 800px;
     flex: 2;
 }
 
 .tree ul {
+    color: white;
     margin-left: 20px;
 }
 
 .tree li { 
+    color: white;
     display: block;
     padding: 7px 16px;
-    border-top: 4px solid #000;
+    border-top: 4px solid white;
 }
 
 .tree li:first-child {
+    color: white;
     border-top: none;
 }
