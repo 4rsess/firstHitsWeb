@@ -7,23 +7,38 @@
     <link rel="stylesheet" href="aAlgorithm.css">
 </head>
 <body>
-    <h1 class="nameAlgorithm">Алгоритм A*</h1>
-    <h2 class="mapSize">Размер карты</h2>
-    <h1 class="down1"></h1>
+
+    <p class="mapSize">Укажите размер карты</p>
+    <p class="changes">Изменения</p>
+
+    <div class="topBar">
+
+        <a class="link" href="/site.html"> Главная</a>
+        
+        <div class="links">
+            <a class="currlink" href="/aStar/aAlgorithm.html"> А*</a>
+            <a class="link" href="/clusteringAlgorithm/clusteringAlgorithm.html"> Алгоритм кластеризации</a>
+            <a class="link" href="/geneticAlgorithm/geneticAlgorithm.html"> Генетический алгоритм</a>
+            <a class="link" href="/antAlgorithm/antAlgorithm.html"> Муравьиный алгоритм</a>
+            <a class="link" href="/decisionTree/decisionTree.html"> Дерево решений</a>
+        </div>
+
+    </div>
 
     <div>
         <label for="mapSize"></label>
         <input class="tab" type="number" value="15" id="mapSize" min="5" placeholder="Введите размер (минимум 5)">
     </div>
     
-    <button class="bottonGeneration" onclick="generateMap()">Генерация карты</button>
-    <button class="addObstacleBtn" id="addObstacleBtn">Переместить стенки</button> 
-    <button class="addStartBtn" id="addStartBtn">Переместить старт</button>
-    <button class="addEndBtn" id="addEndBtn">Переместить конец</button>
-    <button class="bottonFind" onclick="findPath()">Найти путь</button>
+    <div class="bottoms">
+        <button class="bottonGeneration" onclick="generateMap()">Генерация карты</button>
+        <button class="addObstacleBtn" id="addObstacleBtn">Переместить стенки</button> 
+        <button class="addStartBtn" id="addStartBtn">Переместить старт</button>
+        <button class="addEndBtn" id="addEndBtn">Переместить конец</button>
+        <button class="bottonFind" onclick="findPath()">Найти путь</button>
+    </div>
 
     <div class="map" id="map"></div>
-
     <script src="aAlgorithm.js"></script>
 </body>
 </html>

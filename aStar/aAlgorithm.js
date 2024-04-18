@@ -360,7 +360,7 @@ function generateMapWithValidPath() {
     }
 
     if (!isValidPath) {
-        alert('Не удалось сгенерировать лабиринт с путем от начала до конца.');
+        alert('Не удалось сгенерировать лабиринт ;(');
     }
 }
 
