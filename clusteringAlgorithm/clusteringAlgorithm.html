@@ -28,6 +28,7 @@
 
             <div class="input">
                 <label> Кол-во кластеров (для k-Средних и агломерации)</label>
+                </br>
                 <input class="data" type="range" id="clustersCount" min="1" max="6" value="3" oninput="this.nextElementSibling.value = this.value">
                 <output>3</output>
                 </br>
@@ -37,6 +38,7 @@
                 <output>50</output>
                 </br>
                 <label> Минимальное количество точек (для DBSCAN)</label>
+                </br>
                 <input class="data" type="range" id="minPoints" min="3" max="8" value = "4" oninput="this.nextElementSibling.value = this.value">
                 <output>4</output>
             </div>
