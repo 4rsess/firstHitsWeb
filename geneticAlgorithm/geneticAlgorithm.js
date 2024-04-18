@@ -168,8 +168,8 @@ function isEqual(arr1, arr2) {
 
 document.getElementById("findGenetic").onclick = function() {
     originalPoints = points.slice();
-    const populationSize = 100;
-    const generations = 100;
+    populationSize = document.getElementById('populationSize').value;
+    generations = document.getElementById('generations').value;
     geneticAlgorithm(originalPoints, populationSize, generations);
 }
 
