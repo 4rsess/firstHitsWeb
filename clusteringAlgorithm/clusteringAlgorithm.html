@@ -6,32 +6,54 @@
     <link rel="stylesheet" href="clusteringAlgorithm.css">
     <script type="module" src="main.js"></script>
 </head>
-<body>
-    <h1>Алгоритм кластеризации</h1>
-    <h2>Расставьте точки на поле</h2>
-
-    <canvas id="canvas" width="800" height="600"></canvas>
-
-    <div>
-        <input class="tab" type="number" id="clustersCount" min="1" max="6" value="3">
-        <label> Кол-во кластеров (для k-Средних и агломерации)</label>
+    <div class="topBar">
+        <a class="link" href="/site.html"> Главная</a>
+        
+        <div class="links">
+            <a class="link" href="/aStar/aAlgorithm.html"> А*</a>
+            <a class="currlink" href="/clusteringAlgorithm/clusteringAlgorithm.html"> Алгоритм кластеризации</a>
+            <a class="link" href="/geneticAlgorithm/geneticAlgorithm.html"> Генетический алгоритм</a>
+            <a class="link" href="/antAlgorithm/antAlgorithm.html"> Муравьиный алгоритм</a>
+            <a class="link" href="/decisionTree/decisionTree.html"> Дерево решений</a>
+        </div>
     </div>
 
-    <div>
-        <input class="tab" type="number" id="eps" min="35" max ="65" value="50">
-        <label> Радиус поиска (для DBSCAN)</label>
-    </div>
+    <div class="content">
+        
+        <canvas id="canvas" width="800" height="600"></canvas>
 
-    <div>
-        <input class="tab" type="number" id="minPoints" min="3" max="8" value = "3">
-        <label> Минимальное количество точек (для DBSCAN)</label>
-    </div>
+        <div class="block">
 
-    <p>линии - k-Средних</p>
-    <p>кольца - агломерация</p>
-    <p>кресты - DBSCAN</p>
+            <p class="faq"> Расставьте точки на холсте и укажите параметры</p>
+
+            <div class="input">
+                <label> Кол-во кластеров (для k-Средних и агломерации)</label>
+                <input class="data" type="range" id="clustersCount" min="1" max="6" value="3" oninput="this.nextElementSibling.value = this.value">
+                <output>3</output>
+                </br>
+                <label> Радиус поиска (для DBSCAN)</label>
+                <input class="data" type="range" id="eps" min="35" max ="65" value="50" oninput="this.nextElementSibling.value = this.value">
+                <output>50</output>
+                </br>
+                <label> Минимальное количество точек (для DBSCAN)</label>
+                <input class="data" type="range" id="minPoints" min="3" max="8" value = "4" oninput="this.nextElementSibling.value = this.value">
+                <output>4</output>
+            </div>
     
-    <button id="findClusters">Нахождение кластеров</button>
-    <button id="clearCanvas">Очистить поле</button>
+            <div class="context">
+                <p>p.s.</p>
+                <p>линии - k-Средних</p>
+                <p>кольца - Агломерация</p>
+                <p>крестики - DBSCAN (чёрные - шум)</p>
+                <p>используется Евклидово расстояние</p>
+            </div>
+            
+            <div class="buttons">
+                <button id="findClusters">Нахождение кластеров</button>
+            </br>
+                <button id="clearCanvas">Очистить поле</button>
+            </div>
+        </div>  
+    </div>
 </body>
 </html>
