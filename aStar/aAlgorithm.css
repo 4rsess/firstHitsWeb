@@ -46,12 +46,16 @@ body{
     border: 3px solid rgb(54, 54, 54);
     border-radius: 5px;
     background-color: white;
-    top: 205px;
-    left: 832px;
-    height: 30px;
-    width: 200px;
+    top: 160px;
+    left: 1030px;
+    height: 33px;
+    width: 170px;
     font-weight: 900;
+
+    transition: transform 0.2s ease;
 }
+.bottonGeneration:hover {transform: scale(1.1);}
+
 .addObstacleBtn{
     position: absolute;
     border: 3px solid rgb(54, 54, 54);
@@ -62,7 +66,11 @@ body{
     height: 30px;
     width: 160px;
     font-weight: 700;  
+
+    transition: transform 0.2s ease;
 }
+.addObstacleBtn:hover {transform: scale(1.1);}
+
 .addStartBtn{
     background-image: url("https://art.kartinkof.club/uploads/posts/2023-06/thumbs/1686067544_art-kartinkof-club-p-art-krolik-mainkraft-34.png");
     position: absolute;
@@ -74,7 +82,11 @@ body{
     height: 30px;
     width: 160px;
     font-weight: 700;
+
+    transition: transform 0.2s ease;
 }
+.addStartBtn:hover {transform: scale(1.1);}
+
 .addEndBtn{
     background-image: url("https://img.freepik.com/premium-vector/pixel-art-icon-pixel-art-carrot-icon-cute-pixel-carrot-vegetables-vector-8-bit-pixel-carrot-old-school-computer-graphic-style-vector-illustration_561158-1192.jpg");
     position: absolute;
@@ -86,19 +98,27 @@ body{
     height: 30px;
     width: 160px;
     font-weight: 700;
+
+    transition: transform 0.2s ease;
 }
+.addEndBtn:hover {transform: scale(1.1);}
+
 .bottonFind{
     position: absolute;
     text-align: center;
     border: 3px solid rgb(54, 54, 54);
     background-color: white;
-    border-radius: 5px;
+    border-radius: 15px;
     top: 350px;
     left: 540px;
     height: 45px;
     width: 120px;
     font-weight: 700;
+
+    transition: transform 0.2s ease;
 }
+.bottonFind:hover {transform: scale(1.1);}
+
 .map{
     position: absolute;
     top: 320px;

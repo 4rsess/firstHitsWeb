@@ -7,16 +7,17 @@
     <link rel="stylesheet" href="decisionTree.css">
 </head>
 <body>
+    <h1 class="nameAlgorithm">Дерево решений</h1>
     <div class="area">
         <div class="inputSection">
-            <h2 class="nameInput1">Загрузите ваш CSV файл</h2>
-            <input type="file" id="csvFileInput" accept=".csv">
+            <h2 class="uploadFile">Загрузите ваш CSV файл</h2>
+            <input class="selectFile" type="file" id="csvFileInput" accept=".csv">
             <button class="buttonBuild" id="buildTreeBtn">Построить дерево</button>
         </div>
         <div id="tree" class="tree"></div>
         <div class="searchSection">
-            <h2 class="nameInput2">Поиск элемента</h2>
-            <textarea id="csvSearch" cols="40" rows="5"></textarea>
+            <h2 class="elementSearch">Поиск элемента</h2>
+            <textarea class="inputText" id="csvSearch" cols="40" rows="5"></textarea>
             <button class="buttonSearch" id="searchBtn">Поиск</button>
         </div>
     </div>
@@ -36,3 +37,4 @@
 520000, 180000, 45000, Хорошее,
 660000, 170000, 67000, Плохое,
 610000, 190000, 210000, Удовлетворительное, -->
+
