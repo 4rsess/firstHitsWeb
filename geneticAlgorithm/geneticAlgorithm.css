@@ -1,53 +1,82 @@
-body{
-    background-image: url("https://bogatyr.club/uploads/posts/2023-03/1679525880_bogatyr-club-p-estetichnie-oboi-belie-foni-oboi-46.jpg");
-    background-size: cover;
+@font-face {
+    font-family: "PPNeueMachina-InktrapRegular";
+    src: url('/PPNeueMachina-InktrapRegular.otf');
 }
-.nameAlgorithm{
-    position: absolute;
-    text-align: center;
-    border: 4px solid rgb(54, 54, 54);
-    background-color: white;
-    border-radius: 15px;
-    top: 50px;
-    left: 680px;
-    height: 40px;
-    width: 500px;
+
+body {
+    color: white;
+    background-color: black;
+    font-family: "PPNeueMachina-InktrapRegular";
 }
-.geneticCanvas{
-    background-color: white;
-    border: 4px solid rgb(54, 54, 54);
-    border-radius: 10px;
-    position: absolute;
-    top: 150px;
-    left: 625px;
-    
-}
-.findGenetic{
-    position: absolute;
-    border: 3px solid rgb(54, 54, 54);
-    border-radius: 5px;
-    font-weight: 800;
-    background-color: white;
-    top: 190px;
-    left: 490px;
+
+.topBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     height: 35px;
-    width: 100px;
-
-    transition: transform 0.2s ease;
 }
-.findGenetic:hover {transform: scale(1.1);}
 
-.clearGeneticCanvas{
-    position: absolute;
-    border: 3px solid rgb(54, 54, 54);
-    border-radius: 5px;
-    font-weight: 800;
+.links {
+    margin-left: 100px;
+}
+
+.link {
+    text-decoration: none;
+    margin-right: 20px;
+    color: #f0f0f0;
+    font-size: 20px;
+}
+
+.link:hover {
+    color: white;
+}
+
+.currlink {
+    text-decoration: none;
+    margin-right: 20px;
+    color: green;
+    font-size: 20px;
+}
+
+.currlink:hover {
+    color: #45a049;
+} 
+
+canvas {
     background-color: white;
-    top: 235px;
-    left: 450px;
-    height: 35px;
-    width: 140px;
-
-    transition: transform 0.2s ease;
+    border-radius: 13px;
+    border: 1px solid black;
 }
-.clearGeneticCanvas:hover {transform: scale(1.1);}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    gap: 8vh;
+}
+
+.input {
+    font-size: 25px;
+    width: 300px;
+}
+
+.faq {
+    font-size: 32px;
+}
+
+.buttons button{
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: green;
+    border: 2px solid white;
+    border-radius: 13px;
+    cursor: pointer;
+    margin-top: 25px;
+}
+
+.buttons button:hover {
+    background-color: #45a049;
+}

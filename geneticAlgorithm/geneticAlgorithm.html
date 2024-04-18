@@ -2,15 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Генетический алгоритм</title>
     <link rel="stylesheet" href="geneticAlgorithm.css">
 </head>
-<body>
-    <h1 class="nameAlgorithm">Генетический Алгоритм</h1>
-    <canvas class="geneticCanvas" id="geneticCanvas" width="600" height="600"></canvas>
-    <button class="findGenetic" onclick="findGenetic()">Поиск</button>
-    <button class="clearGeneticCanvas" onclick="clearCanvas()">Очистить поле</button>
-    <script src="geneticAlgorithm.js"></script>
+    <div class="topBar">
+        <a class="link" href="/site.html"> Главная</a>
+        
+        <div class="links">
+            <a class="link" href="/aStar/aAlgorithm.html"> А*</a>
+            <a class="link" href="/clusteringAlgorithm/clusteringAlgorithm.html"> Алгоритм кластеризации</a>
+            <a class="currlink" href="/geneticAlgorithm/geneticAlgorithm.html"> Генетический алгоритм</a>
+            <a class="link" href="/antAlgorithm/antAlgorithm.html"> Муравьиный алгоритм</a>
+            <a class="link" href="/decisionTree/decisionTree.html"> Дерево решений</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <canvas id="canvas" width="800" height="600"></canvas>
+
+        <div class="block">
+
+            <p class="faq"> Расставьте точки на холсте</p>
+
+            <div class="input">
+                <label> Размер поппуляции</label>
+                <input class="data" type="range" id="poppulationSize" min="40" max="200" value="100" oninput="this.nextElementSibling.value = this.value">
+                <output>100</output>
+                </br>
+                <label> Кол-во поколений</label>
+                <input class="data" type="range" id="generations" min="50" max ="200" value="100" oninput="this.nextElementSibling.value = this.value">
+                <output>100</output>
+            </div>
+            
+            <div class="buttons">
+                <button id="findGenetic">Запуск алгоритма</button>
+            </br>
+                <button id="clearCanvas">Очистка холста</button>
+            </div>
+        </div>  
+    </div>
+<script src="geneticAlgorithm.js"></script>
 </body>
 </html>

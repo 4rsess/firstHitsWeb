@@ -1,4 +1,4 @@
-const canvas = document.getElementById('geneticCanvas');
+const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const width = canvas.width;
 const height = canvas.height;
@@ -6,7 +6,7 @@ const height = canvas.height;
 let points = [];
 let originalPoints = [];
 
-function printPoint(x, y, color ='black', thick = 5) {
+function printPoint(x, y, color ='black', thick = 8) {
     ctx.beginPath();
     ctx.arc(x, y, thick, 0, Math.PI * 2);
     ctx.fillStyle = color;
@@ -23,11 +23,6 @@ canvas.addEventListener('click', function(event) {
 
     points.push({ x, y });
 })
-
-function clearCanvas() {
-    points.length = 0; 
-    ctx.clearRect(0, 0, width, height);
-}
 
 function distance(point1, point2) {
     const dx = point1.x - point2.x;
@@ -155,7 +150,7 @@ async function geneticAlgorithm(points, populationSize, generations) {//сам �
         ctx.lineTo(bestRoute[i].x, bestRoute[i].y);
     }
     ctx.lineTo(bestRoute[0].x, bestRoute[0].y);
-    ctx.strokeStyle = 'black';
+    ctx.strokeStyle = 'green';
     ctx.stroke();
     originalPoints.forEach(point => {
         printPoint(point.x, point.y);
@@ -171,10 +166,14 @@ function isEqual(arr1, arr2) {
     return true;
 }
 
-
-function findGenetic() {  //размер популяции и кол-во поколений
+document.getElementById("findGenetic").onclick = function() {
     originalPoints = points.slice();
     const populationSize = 100;
     const generations = 100;
     geneticAlgorithm(originalPoints, populationSize, generations);
+}
+
+document.getElementById("clearCanvas").onclick = function() {
+    points = []; 
+    ctx.clearRect(0, 0, width, height);
 }
