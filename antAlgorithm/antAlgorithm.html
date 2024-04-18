@@ -2,29 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Муравьиный алгоритм</title>
+    <title>Муравьиный</title>
     <link rel="stylesheet" href="antAlgorithm.css">
 </head>
-<body>
-    <h1>Муравьиный алгоритм</h1>
-    <h2>Расставьте точки на поле</h2>
+    <div class="topBar">
+        <a class="link" href="/site.html"> Главная</a>
+        
+        <div class="links">
+            <a class="link" href="/aStar/aAlgorithm.html"> А*</a>
+            <a class="link" href="/clusteringAlgorithm/clusteringAlgorithm.html"> Алгоритм кластеризации</a>
+            <a class="link" href="/geneticAlgorithm/geneticAlgorithm.html"> Генетический алгоритм</a>
+            <a class="currlink" href="/antAlgorithm/antAlgorithm.html"> Муравьиный алгоритм</a>
+            <a class="link" href="/decisionTree/decisionTree.html"> Дерево решений</a>
+        </div>
+    </div>
 
-    <canvas id="canvas" width="800" height="600"></canvas></br>
-    <div>
-        <input type="tab" min="10" max="80" value = "50" class="slider" id="numAnts">
-        <label for="antCount"> количество муравьёв</label>
+    <div class="content">
+        
+        <canvas id="canvas" width="800" height="600"></canvas>
+
+        <div class="block">
+
+            <p class="faq"> Расставьте точки на холсте и укажите параметры</p>
+
+            <div class="input">
+                <label> Кол-во муравёв</label>
+                <input class="data" type="range" id="numAnts" min="40" max="150" value="80" oninput="this.nextElementSibling.value = this.value">
+                <output>80</output>
+                </br>
+                <label> Кол-во итераций</label>
+                <input class="data" type="range" id="numIterations" min="30" max ="100" value="50" oninput="this.nextElementSibling.value = this.value">
+                <output>50</output>
+                </br>
+                <label> Скорость испарения феромонов</label>
+                <input class="data" type="range" id="evaporationRate" min="0.1" max="0.8" value = "0.4" step="0.1" oninput="this.nextElementSibling.value = this.value">
+                <output>0.4</output>
+            </div>
+            
+            <div class="buttons">
+                <button id="findWay">Найти путь</button>
+            </br>
+                <button id="clearCanvas">Очистить холст</button>
+            </div>
+        </div>  
     </div>
-    <div>
-        <input type="tab" min="30" max="150" value = "80" class="slider" id="numIterations">
-        <label for="antCount"> количество итераций</label>
-    </div>
-    <div>
-        <input type="tab" min="0.1" max="0.7" value = "0.3" step="0.1" class="slider" id="evaporationRate">
-        <label for="antCount"> скорость испарения феромонов</label>
-    </div>
-   
-    <button class="findWay" onclick="findWay()">Нахождение кратчайшего пути</button>
-    <button class="clearCanvas" onclick="clearCanvas()">Очистить поле</button>
     <script src="antAlgorithm.js"></script>
 </body>
 </html>

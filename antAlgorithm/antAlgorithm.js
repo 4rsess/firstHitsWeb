@@ -6,7 +6,7 @@ let points = [];
 
 function printPoint(x, y) {
     ctx.beginPath();
-    ctx.arc(x, y, 3, 0, Math.PI * 2);
+    ctx.arc(x, y, 8, 0, Math.PI * 2);
     ctx.fillStyle = 'black';
     ctx.fill();
     ctx.closePath();
@@ -21,11 +21,6 @@ canvas.addEventListener('click', function(event) {
 
     points.push({ x, y });
 });
-
-function clearCanvas() {
-    points.length = 0;
-    ctx.clearRect(0, 0, width, height);
-}
 
 function calculateDistances(points) {
     const graph = [];
@@ -53,34 +48,6 @@ function initializePheromone(numPoints) {
         }
     }
     return pheromone;
-}
-
-async function findWayAndDraw() {
-    let numAnts = parseInt(document.getElementById('numAnts').value);
-    let numIterations = parseInt(document.getElementById('numIterations').value);
-    let evaporationRate = parseInt(document.getElementById('evaporationRate').value);
-    const alpha = 1;
-    const beta = 2;
-    
-    const graph = calculateDistances(points);
-    let pheromone = initializePheromone(points.length);
-    let bestPath = [];
-
-    for (let iteration = 0; iteration < numIterations; iteration++) {
-        for (let ant = 0; ant < numAnts; ant++) {
-            const path = generateAntPath(graph, pheromone, alpha, beta);
-            const pathLength = calculatePathLength(graph, path);
-            updatePheromone(pheromone, path, pathLength);
-            if (!bestPath.length || pathLength < calculatePathLength(graph, bestPath)) {
-                bestPath = path.slice();
-            }
-        }
-        updatePheromoneGlobal(pheromone, evaporationRate);
-        drawBestPath(bestPath);
-        await sleep(150);
-    }
-
-    drawBestPath(bestPath);
 }
 
 function sleep(ms) {
@@ -174,7 +141,7 @@ function drawBestPath(bestPath) {
         ctx.lineTo(points[pointIndex].x, points[pointIndex].y);
     }
     ctx.lineTo(points[bestPath[0]].x, points[bestPath[0]].y);
-    ctx.strokeStyle = 'red';
+    ctx.strokeStyle = 'green';
     ctx.lineWidth = 2;
     ctx.stroke();
     ctx.closePath();
@@ -184,6 +151,35 @@ function drawBestPath(bestPath) {
     });
 }
 
-function findWay() {
-    findWayAndDraw();
+document.getElementById("findWay").onclick = async function() {
+    let numAnts = parseInt(document.getElementById('numAnts').value);
+    let numIterations = parseInt(document.getElementById('numIterations').value);
+    let evaporationRate = parseInt(document.getElementById('evaporationRate').value);
+    const alpha = 1;
+    const beta = 2;
+    
+    const graph = calculateDistances(points);
+    let pheromone = initializePheromone(points.length);
+    let bestPath = [];
+
+    for (let iteration = 0; iteration < numIterations; iteration++) {
+        for (let ant = 0; ant < numAnts; ant++) {
+            const path = generateAntPath(graph, pheromone, alpha, beta);
+            const pathLength = calculatePathLength(graph, path);
+            updatePheromone(pheromone, path, pathLength);
+            if (!bestPath.length || pathLength < calculatePathLength(graph, bestPath)) {
+                bestPath = path.slice();
+            }
+        }
+        updatePheromoneGlobal(pheromone, evaporationRate);
+        drawBestPath(bestPath);
+        await sleep(150);
+    }
+
+    drawBestPath(bestPath);
+}
+
+document.getElementById("clearCanvas").onclick = function() {
+    points.length = 0;
+    ctx.clearRect(0, 0, width, height);
 }
