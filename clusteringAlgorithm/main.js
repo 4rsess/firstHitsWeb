@@ -11,7 +11,7 @@ export let clustersCount
 export let eps
 export let minPoints
 
-export function printPoint(x, y, color ='black', thick = 6) {
+export function printPoint(x, y, color ='black', thick = 8) {
     ctx.beginPath()
     ctx.arc(x, y, thick, 0, Math.PI * 2)
     ctx.fillStyle = color
@@ -42,8 +42,9 @@ document.getElementById("findClusters").onclick = function() {
     eps = parseInt(document.getElementById('eps').value)
 
     agglomerativeClustering()
-    kMeans()
     dbscan()
+    kMeans()
+    
 }
 
 document.getElementById("clearCanvas").onclick = function() {

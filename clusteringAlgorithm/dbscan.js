@@ -79,11 +79,11 @@ function drawX(x, y, color = 'black') {
     ctx.beginPath()
     ctx.strokeStyle = color
 
-    ctx.moveTo(x - 7, y - 7)
-    ctx.lineTo(x + 7, y + 7)
+    ctx.moveTo(x - 10, y - 10)
+    ctx.lineTo(x + 10, y + 10)
 
-    ctx.moveTo(x + 7, y - 7)
-    ctx.lineTo(x - 7, y + 7)
+    ctx.moveTo(x + 10, y - 10)
+    ctx.lineTo(x - 10, y + 10)
 
     ctx.stroke()
 }
