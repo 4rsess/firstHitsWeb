@@ -31,7 +31,7 @@ body {
     padding: 10px 10px;
 }
 
-.links {
+.link {
     display: inline-block;
     text-decoration: none;
     border: 2px solid white;
@@ -42,4 +42,9 @@ body {
     margin-right: 20px;
     margin-top: 50px;
     font-size: 27px;
+}
+
+.link:hover {
+    background-color:green;
+    color: black;
 }
