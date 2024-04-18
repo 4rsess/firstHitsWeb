@@ -353,7 +353,7 @@ function generateMapWithValidPath() {
     let isValidPath = false;
     let attempts = 0;
 
-    while (!isValidPath && attempts < 100) { 
+    while (!isValidPath && attempts < 1000) { 
         generateMap();
         isValidPath = checkPathAvailability();
         attempts++;
