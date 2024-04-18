@@ -12,7 +12,6 @@ body {
     text-align: center;
     font-family: "PPNeueMachina-InktrapRegular";
 }
-
 .title {
     font-size: 64px;
     padding-top: 50px;
@@ -21,6 +20,10 @@ body {
 
 .first {
     color: white;
+    border: 2px solid black;
+    background-color: black;
+    border-radius: 15px;
+    padding: 10px 10px;
 }
 
 .second {
@@ -48,3 +51,33 @@ body {
     background-color:green;
     color: black;
 }
+
+.first:hover {
+    background-color: white;
+    color: black;
+}
+
+.second:hover {
+    background-color: black;
+    color:green;
+}
+
+.redirection {
+    text-decoration: none;
+    color: white;
+}
+
+.redirection:hover {
+    color: green;
+}
+
+.desc {
+    color: white;
+}
+
+.credits {
+    position: absolute;
+    bottom: 0;
+    width: 99%;
+    margin-bottom: 15px;
+}   
