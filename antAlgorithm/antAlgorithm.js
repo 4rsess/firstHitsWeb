@@ -22,17 +22,19 @@ canvas.addEventListener('click', function(event) {
     points.push({ x, y });
 });
 
+function getHypot(firstPoint, secondPoint) {
+    return Math.sqrt(Math.pow(firstPoint.x - secondPoint.x, 2) + Math.pow(firstPoint.y - secondPoint.y, 2))
+}
+
 function calculateDistances(points) {
-    const graph = [];
+    let graph = [];
     for (let i = 0; i < points.length; i++) {
         graph[i] = [];
         for (let j = 0; j < points.length; j++) {
             if (i === j) {
                 graph[i][j] = Infinity;
             } else {
-                const dx = points[i].x - points[j].x;
-                const dy = points[i].y - points[j].y;
-                graph[i][j] = Math.sqrt(dx * dx + dy * dy);
+                graph[i][j] = getHypot(points[i], points[j])
             }
         }
     }
@@ -40,30 +42,26 @@ function calculateDistances(points) {
 }
 
 function initializePheromone(numPoints) {
-    const pheromone = [];
+    let pheromone = [];
     for (let i = 0; i < numPoints; i++) {
         pheromone[i] = [];
         for (let j = 0; j < numPoints; j++) {
-            pheromone[i][j] = 0.1;
+            pheromone[i][j] = 1;
         }
     }
     return pheromone;
 }
 
-function sleep(ms) {
-    return new Promise(findWayAndDraw => setTimeout(findWayAndDraw, ms));
-}
-
 function generateAntPath(graph, pheromone, alpha, beta) {
-    const path = [];
-    const visited = new Set();
+    let path = [];
+    let visited = new Set();
     let current = Math.floor(Math.random() * graph.length);
     path.push(current);
     visited.add(current);
 
     while (visited.size < graph.length) {
-        const probabilities = calculateProbabilities(graph, pheromone, current, visited, alpha, beta);
-        const next = selectNextNode(probabilities);
+        let probabilities = calculateProbabilities(graph, pheromone, current, visited, alpha, beta);
+        let next = selectNextNode(probabilities);
         path.push(next);
         visited.add(next);
         current = next;
@@ -74,14 +72,14 @@ function generateAntPath(graph, pheromone, alpha, beta) {
 }
 
 function calculateProbabilities(graph, pheromone, current, visited, alpha, beta) {
-    const probabilities = [];
+    let probabilities = [];
     let total = 0;
 
     for (let i = 0; i < graph.length; i++) {
         if (!visited.has(i)) {
-            const pheromoneValue = pheromone[current][i];
-            const heuristic = 1 / graph[current][i];
-            const probability = Math.pow(pheromoneValue, alpha) * Math.pow(heuristic, beta);
+            let pheromoneValue = pheromone[current][i];
+            let heuristic = 1 / graph[current][i];
+            let probability = Math.pow(pheromoneValue, alpha) * Math.pow(heuristic, beta);
             probabilities.push({ node: i, probability });
             total += probability;
         }
@@ -95,7 +93,7 @@ function calculateProbabilities(graph, pheromone, current, visited, alpha, beta)
 }
 
 function selectNextNode(probabilities) {
-    const random = Math.random();
+    let random = Math.random();
     let sum = 0;
 
     for (let i = 0; i < probabilities.length; i++) {
@@ -113,11 +111,12 @@ function calculatePathLength(graph, path) {
     for (let i = 0; i < path.length - 1; i++) {
         length += graph[path[i]][path[i + 1]];
     }
+    length += graph[path[path.length - 1]][path[0]];
     return length;
 }
 
 function updatePheromone(pheromone, path, pathLength) {
-    const pheromoneDeposit = 1 / pathLength;
+    let pheromoneDeposit = 1 / pathLength;
     for (let i = 0; i < path.length - 1; i++) {
         pheromone[path[i]][path[i + 1]] += pheromoneDeposit;
     }
@@ -131,17 +130,17 @@ function updatePheromoneGlobal(pheromone, evaporationRate) {
     }
 }
 
-function drawBestPath(bestPath) {
+function drawPath(bestPath, color = 'gray') {
     ctx.clearRect(0, 0, width, height);
 
     ctx.beginPath();
     ctx.moveTo(points[bestPath[0]].x, points[bestPath[0]].y);
     for (let i = 1; i < bestPath.length; i++) {
-        const pointIndex = bestPath[i];
+        let pointIndex = bestPath[i];
         ctx.lineTo(points[pointIndex].x, points[pointIndex].y);
     }
     ctx.lineTo(points[bestPath[0]].x, points[bestPath[0]].y);
-    ctx.strokeStyle = 'green';
+    ctx.strokeStyle = color;
     ctx.lineWidth = 2;
     ctx.stroke();
     ctx.closePath();
@@ -155,28 +154,31 @@ document.getElementById("findWay").onclick = async function() {
     let numAnts = parseInt(document.getElementById('numAnts').value);
     let numIterations = parseInt(document.getElementById('numIterations').value);
     let evaporationRate = parseInt(document.getElementById('evaporationRate').value);
-    const alpha = 1;
-    const beta = 2;
-    
-    const graph = calculateDistances(points);
+    let alpha = 2;
+    let beta = 5;
+    let graph = calculateDistances(points);
     let pheromone = initializePheromone(points.length);
     let bestPath = [];
+    let intermediatePath = [];
 
     for (let iteration = 0; iteration < numIterations; iteration++) {
         for (let ant = 0; ant < numAnts; ant++) {
-            const path = generateAntPath(graph, pheromone, alpha, beta);
-            const pathLength = calculatePathLength(graph, path);
+            let path = generateAntPath(graph, pheromone, alpha, beta);
+            let pathLength = calculatePathLength(graph, path);
             updatePheromone(pheromone, path, pathLength);
+
+            intermediatePath = path.slice();
+
             if (!bestPath.length || pathLength < calculatePathLength(graph, bestPath)) {
                 bestPath = path.slice();
             }
         }
         updatePheromoneGlobal(pheromone, evaporationRate);
-        drawBestPath(bestPath);
-        await sleep(150);
+        drawPath(intermediatePath);
+        await new Promise(resolve => setTimeout(resolve, 50));
     }
 
-    drawBestPath(bestPath);
+    drawPath(bestPath, 'green');
 }
 
 document.getElementById("clearCanvas").onclick = function() {
