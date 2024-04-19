@@ -27,12 +27,12 @@
             <div class="input">
                 <label> Размер поппуляции</label>
                 </br>
-                <input class="data" type="range" id="populationSize" min="100" max="1500" value="700" step="10" oninput="this.nextElementSibling.value = this.value">
+                <input class="data" type="range" id="populationSize" min="50" max="300" value="150" step="10" oninput="updateOutput(this)">
                 <output>700</output>
                 </br>
                 <label> Кол-во поколений</label>
                 </br>
-                <input class="data" type="range" id="generations" min="100" max ="1500" value="700" step="10" oninput="this.nextElementSibling.value = this.value">
+                <input class="data" type="range" id="generations" min="50" max ="300" value="150" step="10" oninput="updateOutput(this)">
                 <output>700</output>
             </div>
             
@@ -44,5 +44,6 @@
         </div>  
     </div>
 <script src="geneticAlgorithm.js"></script>
+<script src="/sliders.js"></script>
 </body>
 </html>
