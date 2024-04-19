@@ -46,7 +46,7 @@ function highlightNodes(data, searchData, parentElement = document.querySelector
         liElement.textContent = `${item.title} ${item.value}`; 
         ulElement.appendChild(liElement); 
 
-        if (item.value === searchData[currentIndex]) {//соответствие значения текущего узла искомого значению
+        if (item.value === searchData[currentIndex]) { //соответствие значения текущего узла искомого значению
             liElement.style.backgroundColor = 'green';
             currentIndex++; 
         }

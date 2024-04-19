@@ -45,7 +45,7 @@ function createInitialPopulation(points, populationSize) { //создаем на
     return population;
 }
 
-function calculateFitness(population) {  //пригоден ли маршрут в попкляции
+function calculateFitness(population) {  //пригоден ли маршрут в популяции
     let fitnessScores = [];
     for (let i = 0; i < population.length; i++) {
         let route = population[i];
@@ -126,7 +126,7 @@ async function geneticAlgorithm(points, populationSize, generations) {//сам �
             ctx.stroke();
             originalPoints.forEach(point => {
                 printPoint(point.x, point.y);
-            });  // Ожидание 20 миллисекунд между отрисовками
+            });  //ожидание 20 милсек между отрисовками
             await new Promise(resolve => setTimeout(resolve, 20)); 
         }
         

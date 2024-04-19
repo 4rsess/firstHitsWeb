@@ -149,7 +149,6 @@ function toggleCell(cell) {
             }
             startCell = cell;
             startCell.classList.add('start');
-            startCell.style.backgroundColor = 'red';
         }
     } else if (addEndBtn.classList.contains('active')) {
         if (cell === endCell) {
@@ -163,7 +162,6 @@ function toggleCell(cell) {
             }
             endCell = cell;
             endCell.classList.add('end');
-            endCell.style.backgroundColor = 'green';
         }
     } else if (addObstacleBtn.classList.contains('active')) {
         cell.classList.toggle('obstacle');
@@ -205,7 +203,7 @@ function aStar() {
 
     let interval = setInterval(() => {
         if (openSet.length > 0) {
-            //нахождение ячейки с наименьшим fscore
+            //нахождение ячейки с наименьшим значением
             let current = openSet[0];
             for (let i = 1; i < openSet.length; i++) {
                 if (openSet[i].f < current.f) {
@@ -229,12 +227,12 @@ function aStar() {
             for (let i = 0; i < neighbors.length; i++) {
                 const neighbor = neighbors[i];
 
-                //проверка на соседа в closedSet
+                //проверка на соседа в наборе
                 if (closedSet.includes(neighbor)) {
                     continue;
                 }
 
-                //вычисление gscore соседа
+                //вычисление значение соседа
                 const gScore = current.g + 1;
 
                 if (!openSet.includes(neighbor) || gScore < neighbor.g) {
