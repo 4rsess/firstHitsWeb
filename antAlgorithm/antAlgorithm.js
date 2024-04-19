@@ -154,6 +154,8 @@ document.getElementById("findWay").onclick = async function() {
     let numAnts = parseInt(document.getElementById('numAnts').value);
     let numIterations = parseInt(document.getElementById('numIterations').value);
     let evaporationRate = parseInt(document.getElementById('evaporationRate').value);
+    let maxRepeats = 100;
+    let repeats = 0;
     let alpha = 2;
     let beta = 5;
     let graph = calculateDistances(points);
@@ -161,7 +163,7 @@ document.getElementById("findWay").onclick = async function() {
     let bestPath = [];
     let intermediatePath = [];
 
-    for (let iteration = 0; iteration < numIterations; iteration++) {
+    for (let iteration = 0; iteration < numIterations && repeats < maxRepeats; iteration++) {
         for (let ant = 0; ant < numAnts; ant++) {
             let path = generateAntPath(graph, pheromone, alpha, beta);
             let pathLength = calculatePathLength(graph, path);
@@ -171,11 +173,15 @@ document.getElementById("findWay").onclick = async function() {
 
             if (!bestPath.length || pathLength < calculatePathLength(graph, bestPath)) {
                 bestPath = path.slice();
-            }
+                repeats = 0;
+            } else {
+                repeats++;
+            }    
+                
+            drawPath(intermediatePath);
+            await new Promise(resolve => setTimeout(resolve, 50));
         }
         updatePheromoneGlobal(pheromone, evaporationRate);
-        drawPath(intermediatePath);
-        await new Promise(resolve => setTimeout(resolve, 50));
     }
 
     drawPath(bestPath, 'green');
