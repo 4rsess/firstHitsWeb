@@ -49,14 +49,18 @@ canvas {
     border: 1px solid black;
 }
 
+
 .content {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 90vh;
     gap: 8vh;
+    flex-wrap: wrap;
 }
-
+.block {
+    flex-shrink: 1;
+}
 .input {
     font-size: 25px;
 }
