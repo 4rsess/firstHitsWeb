@@ -10,7 +10,7 @@ export function kMeans() {
 
     generateCentroids()
     
-    centroids.Moved = true
+    centroidsMoved = true
     while(centroidsMoved) {
         centroidsMoved = false
         updateCentroids()
