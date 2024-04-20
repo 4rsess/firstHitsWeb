@@ -142,3 +142,17 @@ body {
     color: white;
     border-top: none;
 }
+.PS{
+    color: white;
+    position: absolute;
+    top: 530px;
+    left: 50px;
+    font-size: 15px;
+}
+.inputData{
+    color: white;
+    position: absolute;
+    top: 555px;
+    left: 50px;
+    font-size: 15px;
+}
